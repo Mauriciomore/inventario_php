@@ -1,5 +1,4 @@
 <?php
-
 class ControladorUsuarios{
 
 	/*=============================================
@@ -112,7 +111,11 @@ class ControladorUsuarios{
 
 					$directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
 
-					mkdir($directorio, 0755);
+					if (!file_exists($directorio)) { 
+  
+						// Create a new file or direcotry 
+						mkdir($directorio, 0755);
+					} 
 
 					/*=============================================
 					DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
@@ -126,7 +129,7 @@ class ControladorUsuarios{
 
 						$aleatorio = mt_rand(100,999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
+						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$_FILES["nuevaFoto"]["name"].".jpg";
 
 						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);						
 
@@ -173,7 +176,6 @@ class ControladorUsuarios{
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
 			
 				if($respuesta == "ok"){
-
 					echo '<script>
 
 					swal({
@@ -197,11 +199,35 @@ class ControladorUsuarios{
 					</script>';
 
 
+				} else {
+					console_log("Create ERROR");
+					echo '<script>
+
+					swal({
+
+						type: "error",
+						title: "¡Error al guardar el usuario!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+
+					}).then(function(result){
+
+						if(result.value){
+						
+							window.location = "usuarios";
+
+						}
+
+					});
+				
+
+					</script>';
+
+
 				}	
 
 
 			}else{
-
 				echo '<script>
 
 					swal({

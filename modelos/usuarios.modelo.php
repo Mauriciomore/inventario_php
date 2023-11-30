@@ -51,7 +51,7 @@ class ModeloUsuarios{
 		$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
 
-		write_to_console(stmt);
+		console_log($stmt);
 
 		if($stmt->execute()){
 
