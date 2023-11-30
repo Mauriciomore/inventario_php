@@ -138,6 +138,20 @@
 
 		}
 
+		if($_SESSION["perfil"] == "Cliente"){
+
+			echo '<li>
+
+			<a href="crear-venta">
+
+				<i class="fa fa-circle-o"></i>
+				<span>Crear venta</span>
+
+			</a>
+
+			</li>';
+		}
+
 		?>
 
 		</ul>

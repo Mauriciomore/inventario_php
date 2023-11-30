@@ -137,11 +137,11 @@ if($_SESSION["perfil"] == "Especial"){
                       $item = null;
                       $valor = null;
 
-                      $categorias = ControladorClientes::ctrMostrarClientes($item, $valor);
+                      $cliente = ControladorClientes::ctrMostrarClientes($item, $valor);
 
-                       foreach ($categorias as $key => $value) {
+                       foreach ($cliente as $key => $value) {
 
-                         echo '<option value="'.$value["id"].'">'.$value["nombre"].'</option>';
+                         echo '<option value="'.$value["id"].'"'.($_SESSION["cliente"] == $value["id"] ? ' selected' : ' ' ).'>'.$value["nombre"].'</option>';
 
                        }
 

@@ -12,8 +12,6 @@ class ControladorUsuarios{
 			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
 			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])){
 
-			   	$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
 				$tabla = "usuarios";
 
 				$item = "usuario";
@@ -21,7 +19,7 @@ class ControladorUsuarios{
 
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
-				if($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar){
+				if($respuesta["usuario"] == $_POST["ingUsuario"] && password_verify($_POST["ingPassword"], $respuesta["password"])){
 
 					if($respuesta["estado"] == 1){
 
@@ -31,6 +29,7 @@ class ControladorUsuarios{
 						$_SESSION["usuario"] = $respuesta["usuario"];
 						$_SESSION["foto"] = $respuesta["foto"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
+						$_SESSION["cliente"] = $respuesta["cliente"];
 
 						/*=============================================
 						REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
@@ -149,7 +148,7 @@ class ControladorUsuarios{
 
 						$aleatorio = mt_rand(100,999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
+						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$_FILES["nuevaFoto"]["name"].".jpg";
 
 						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);						
 
@@ -165,7 +164,10 @@ class ControladorUsuarios{
 
 				$tabla = "usuarios";
 
-				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+				$options = [
+					'cost' => 12,
+				];
+				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT, $options);
 
 				$datos = array("nombre" => $_POST["nuevoNombre"],
 					           "usuario" => $_POST["nuevoUsuario"],
