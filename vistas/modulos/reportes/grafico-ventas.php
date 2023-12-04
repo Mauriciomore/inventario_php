@@ -32,9 +32,10 @@ foreach ($respuesta as $key => $value) {
 	$arrayVentas = array($fecha => $value["total"]);
 
 	#Sumamos los pagos que ocurrieron el mismo mes
+  $sumaPagosMes[$key] = 0;
 	foreach ($arrayVentas as $key => $value) {
 		
-		$sumaPagosMes[$key] += $value;
+		$sumaPagosMes[$key] += 1;
 	}
 
 }
@@ -56,7 +57,7 @@ GRÁFICO DE VENTAS
 		
  		<i class="fa fa-th"></i>
 
-  		<h3 class="box-title">Gráfico de Productops mas Pedidos</h3>
+  		<h3 class="box-title">Gráfico de Productos mas Pedidos</h3>
 
 	</div>
 
@@ -81,16 +82,16 @@ GRÁFICO DE VENTAS
 
 	    foreach($noRepetirFechas as $key){
 
-	    	echo "{ y: '".$key."', ventas: ".$sumaPagosMes[$key]." },";
+	    	echo "{ y: '".$key."', pedidos: ".$sumaPagosMes[$key]." },";
 
 
 	    }
 
-	    echo "{y: '".$key."', ventas: ".$sumaPagosMes[$key]." }";
+	    echo "{y: '".$key."', pedidos: ".$sumaPagosMes[$key]." }";
 
     }else{
 
-       echo "{ y: '0', ventas: '0' }";
+       echo "{ y: '0', pedidos: '0' }";
 
     }
 
@@ -98,8 +99,8 @@ GRÁFICO DE VENTAS
 
     ],
     xkey             : 'y',
-    ykeys            : ['ventas'],
-    labels           : ['ventas'],
+    ykeys            : ['pedidos'],
+    labels           : ['pedidos'],
     lineColors       : ['#efefef'],
     lineWidth        : 2,
     hideHover        : 'auto',
@@ -109,7 +110,7 @@ GRÁFICO DE VENTAS
     pointStrokeColors: ['#efefef'],
     gridLineColor    : '#efefef',
     gridTextFamily   : 'Open Sans',
-    preUnits         : '$',
+    preUnits         : '',
     gridTextSize     : 10
   });
 
