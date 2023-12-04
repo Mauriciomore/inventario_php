@@ -244,11 +244,13 @@ MODAL AGREGAR CLIENTE
     } else {
       console_log("Create");
       $crearCliente = new ControladorClientes();
-      $crearCliente->ctrCrearCliente();
-      $_POST["nuevoNombre"] = $_POST["nuevoCliente"];
-      $_POST["nuevoPerfil"] = "Cliente";
-      $_POST["idCliente"] = "";
-      $usrs_controller->ctrCrearUsuario();
+      $id_res = $crearCliente->ctrCrearCliente();
+      if($id_res != "error"){
+        $_POST["nuevoNombre"] = $_POST["nuevoCliente"];
+        $_POST["nuevoPerfil"] = "Cliente";
+        $_POST["idCliente"] = $id_res;
+        $usrs_controller->ctrCrearUsuario();
+      }
     }
   }
   ?>

@@ -173,7 +173,8 @@ class ControladorUsuarios{
 					           "usuario" => $_POST["nuevoUsuario"],
 					           "password" => $encriptar,
 					           "perfil" => $_POST["nuevoPerfil"],
-					           "foto"=>$ruta);
+					           "foto"=>$ruta,
+							   "cliente"=>$_POST["idCliente"]);
 
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
 			

@@ -10,7 +10,8 @@ class ModeloClientes{
 
 	static public function mdlIngresarCliente($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre, documento, email, telefono, direccion, fecha_nacimiento, foto) VALUES (:nombre, :documento, :email, :telefono, :direccion, :fecha_nacimiento, :foto)");
+		$dbc = Conexion::conectar();
+		$stmt = $dbc->prepare("INSERT INTO $tabla(nombre, documento, email, telefono, direccion, fecha_nacimiento, foto) VALUES (:nombre, :documento, :email, :telefono, :direccion, :fecha_nacimiento, :foto)");
 
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":documento", $datos["documento"], PDO::PARAM_INT);
@@ -22,7 +23,7 @@ class ModeloClientes{
 
 		if($stmt->execute()){
 
-			return "ok";
+			return $dbc->lastInsertId();
 
 		}else{
 

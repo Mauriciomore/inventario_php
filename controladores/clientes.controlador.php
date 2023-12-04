@@ -101,8 +101,7 @@ class ControladorClientes
 
 				$respuesta = ModeloClientes::mdlIngresarCliente($tabla, $datos);
 
-				if ($respuesta == "ok") {
-
+				if ($respuesta != "error") {
 					echo '<script>
 
 					swal({
@@ -120,6 +119,7 @@ class ControladorClientes
 
 					</script>';
 				}
+				return $respuesta;
 			} else {
 
 				echo '<script>
@@ -138,6 +138,8 @@ class ControladorClientes
 						})
 
 			  	</script>';
+
+				return "error";
 			}
 		}
 	}
