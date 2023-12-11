@@ -100,6 +100,7 @@ class ControladorUsuarios{
 				if(isset($_FILES["nuevaFoto"]["tmp_name"]) && !empty($_FILES["nuevaFoto"]["tmp_name"])){
 
 					list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+					$filename = explode( '.', $_FILES["nuevaFoto"]["name"] );
 
 					$nuevoAncho = 500;
 					$nuevoAlto = 500;
@@ -128,7 +129,7 @@ class ControladorUsuarios{
 
 						$aleatorio = mt_rand(100,999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$_FILES["nuevaFoto"]["name"].".jpg";
+						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$filename[0].".jpg";
 
 						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);						
 
@@ -148,7 +149,7 @@ class ControladorUsuarios{
 
 						$aleatorio = mt_rand(100,999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$_FILES["nuevaFoto"]["name"].".jpg";
+						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio."-".$filename[0].".jpg";
 
 						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);						
 

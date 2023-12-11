@@ -29,6 +29,7 @@ class ControladorClientes
 					$ruta = "";
 
 					list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+					$filename = explode( '.', $_FILES["nuevaFoto"]["name"] );
 
 					$nuevoAncho = 500;
 					$nuevoAlto = 500;
@@ -56,7 +57,7 @@ class ControladorClientes
 
 						$aleatorio = mt_rand(100, 999);
 
-						$ruta = "vistas/img/clientes/" . $_POST["nuevoDocumentoId"] . "/" . $aleatorio . "-" . $_FILES["nuevaFoto"]["name"] . ".jpg";
+						$ruta = "vistas/img/clientes/" . $_POST["nuevoDocumentoId"] . "/" . $aleatorio . "-" . $filename[0] . ".jpg";
 
 						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -75,7 +76,8 @@ class ControladorClientes
 
 						$aleatorio = mt_rand(100, 999);
 
-						$ruta = "vistas/img/clientes/" . $_POST["nuevoDocumentoId"] . "/" . $aleatorio . "-" . $_FILES["nuevaFoto"]["name"] . ".jpg";
+						
+						$ruta = "vistas/img/clientes/" . $_POST["nuevoDocumentoId"] . "/" . $aleatorio . "-" . $filename[0] . ".jpg";
 
 						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
 
